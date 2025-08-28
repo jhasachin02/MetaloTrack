@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, Text, Modal, TouchableOpacity, Picker, TextInput } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Modal, TouchableOpacity, TextInput } from 'react-native';
 import MetalCard from './components/MetalCard';
 import { getMetalPrice } from './api/metals';
 
@@ -45,18 +45,16 @@ export default function App() {
 
   const currentCurrency = CURRENCIES.find(c => c.code === selectedCurrency) || CURRENCIES[0];
 
-  // Filter currencies based on search text
   const filteredCurrencies = CURRENCIES.filter(currency =>
     currency.name.toLowerCase().includes(currencySearchText.toLowerCase()) ||
     currency.code.toLowerCase().includes(currencySearchText.toLowerCase())
   );
 
   useEffect(() => {
-    // Add delay between API calls to avoid rate limiting
     METALS.forEach((metal, idx) => {
       setTimeout(() => {
         fetchMetal(idx, metal.symbol);
-      }, idx * 1000); // 1 second delay between each call
+      }, idx * 1000);
     });
   }, [selectedCurrency]);
 
@@ -168,7 +166,6 @@ export default function App() {
         </View>
       </Modal>
 
-      {/* Currency Picker Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -181,8 +178,6 @@ export default function App() {
         <View style={styles.modalOverlay}>
           <View style={styles.currencyModalContent}>
             <Text style={styles.currencyModalTitle}>Select Currency</Text>
-            
-            {/* Search Input */}
             <View style={styles.searchContainer}>
               <TextInput
                 style={styles.searchInput}
@@ -193,7 +188,6 @@ export default function App() {
                 autoCapitalize="none"
               />
             </View>
-            
             <ScrollView style={styles.currencyList}>
               {filteredCurrencies.map((currency) => (
                 <TouchableOpacity
@@ -233,7 +227,6 @@ export default function App() {
                 </TouchableOpacity>
               ))}
             </ScrollView>
-            
             <TouchableOpacity 
               style={styles.closeButton} 
               onPress={() => {
@@ -256,7 +249,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   header: {
-    backgroundColor: '#1E3A8A', // Professional blue
+    backgroundColor: '#1E3A8A',
     paddingVertical: 24,
     paddingHorizontal: 16,
     paddingTop: 50,

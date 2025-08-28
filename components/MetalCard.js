@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, ActivityIndicator, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function MetalCard({ name, price, timestamp, loading, error, onPress, currencySymbol = '₹' }) {
-  // Calculate 10 gram price (1 troy ounce = 31.1035 grams)
   const priceFor10Grams = price ? (price / 31.1035 * 10) : null;
   const showGram = name !== 'Palladium';
 

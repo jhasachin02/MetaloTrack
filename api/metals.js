@@ -9,9 +9,7 @@ export async function getMetalPrice(symbol, currency = 'INR') {
         'Content-Type': 'application/json',
       },
     });
-    
-    console.log('API Response Status:', response.status);
-    
+
     if (response.status === 429) {
       return { data: null, error: 'Rate limit exceeded. Please wait.' };
     } else if (response.status === 400) {
@@ -21,11 +19,10 @@ export async function getMetalPrice(symbol, currency = 'INR') {
     } else if (!response.ok) {
       return { data: null, error: `HTTP error! status: ${response.status}` };
     }
-    
+
     const data = await response.json();
     return { data, error: null };
   } catch (error) {
-    console.log('API Error:', error);
     return { data: null, error: error.message || 'Failed to fetch data' };
   }
 }
